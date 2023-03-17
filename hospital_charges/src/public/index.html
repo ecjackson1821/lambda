@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html>
+  <head>
+    <title>Route Delays</title>
+    <link type="text/css" rel="stylesheet" href="elegant-aero.css" />
+  </head>
+  <!-- Thanks to Mario C. E. Freese <mcefreese@gmail.com> for permission to use background image -->
+  <body style='background-image:URL("https://www.resolvemedicalbills.com/wp-content/uploads/2019/09/surprise-billing-e1615875524183.jpg");background-repeat:no-repeat;background-position:center top;-webkit-background-size:100%;-moz-background-size:100%;-o-background-size:100%;background-size: 100%;'>
+    <p style="margin-bottom:2cm"/>
+<!--    <form action="/delays.html" style="width:300px;margin:0 auto;padding-top=200px;background:#FFFFFF" method="get" target="results_iframe" class="elegant-aero">-->
+<!--      <label>-->
+<!--	<span>Origin:</span>-->
+<!--	<input type="text" name="origin" value="ORD"/>-->
+<!--      </label>-->
+<!--      <label>-->
+<!--	<span>Destination:</span>-->
+<!--	<input type="text" name="dest" value="AUS"/>-->
+<!--      </label>-->
+<!--      <label>-->
+      <form action="/operation-type.html" style="background:#FFFFFF;width:60%;margin:auto"  method="get" class="elegant-aero">
+          <label>
+              <span>Operation:</span>
+          </label>
+          <select name="category" id="service-line-select">
+              <option value="">--Please choose an option--</option>
+    <!--              <option value="AAA">Abdominal aortic aneurysm repair</option>-->
+    <!--              <option value="HYST">Abdominal hysterectomy</option>-->
+    <!--              <option value="APPY">Appendix surgery</option>-->
+    <!--              <option value="AVSD">AV shunt for dialysis </option>-->
+    <!--              <option value="BILI">Bile duct, liver or pancreatic surgery</option>-->
+    <!--              <option value="BRST">Breast surgery</option>-->
+    <!--              <option value="CARD">Cardiac surgery</option>-->
+    <!--              <option value="CEA">Carotid endarterectomy</option>-->
+    <!--              <option value="CSEC">Cesarean section</option>-->
+    <!--              <option value="COLO">Colon surgery</option>-->
+    <!--              <option value="CBGC">Coronary bypass graft with chest incision</option>-->
+    <!--              <option value="CBGB">Coronary bypass with chest & donor incisions</option>-->
+    <!--              <option value="CRAN">Craniotomy</option>-->
+    <!--              <option value="XLAP">Exploratory laparotomy</option>-->
+    <!--              <option value="CHOL">GallblNo changeer surgery</option>-->
+    <!--              <option value="GAST">Gastric surgery</option>-->
+    <!--              <option value="HTP">Heart transplant</option>-->
+    <!--              <option value="HER">Herniorrhaphy</option>-->
+    <!--              <option value="HPRO">Hip prosthesis</option>-->
+    <!--              <option value="NEPH">Kidney surgery</option>-->
+    <!--              <option value="KTP">Kidney transplant</option>-->
+    <!--              <option value="KPRO">Knee prosthesis</option>-->
+    <!--              <option value="LAM">Laminectomy</option>-->
+    <!--              <option value="AMP">Limb amputation</option>-->
+    <!--              <option value="LTP">Liver transplant</option>-->
+    <!--              <option value="NECK">Neck surgery</option>-->
+    <!--              <option value="FX">Open reduction of fracture</option>-->
+    <!--              <option value="OVRY">Ovarian surgery</option>-->
+              <option value="PACE">Pacemaker surgery</option>
+    <!--              <option value="PVBY">Peripheral vascular bypass surgery</option>-->
+    <!--              <option value="PRST">Prostate surgery</option>-->
+    <!--              <option value="REC">Rectal surgery </option>-->
+    <!--              <option value="SB">Small bowel surgery</option>-->
+    <!--              <option value="FUSN">Spinal fusion</option>-->
+    <!--              <option value="SPLE">Spleen surgery</option>-->
+    <!--              <option value="THOR">Thoracic surgery </option>-->
+    <!--              <option value="THYR">Thyroid and/or parathyroid surgery</option>-->
+    <!--              <option value="VHYS">Vaginal hysterectomy</option>-->
+    <!--              <option value="VSHN">Ventricular shunt</option>-->
+          </select>
+          <label>
+              <span>:</span>
+          </label>
+          <select name="procedure_code" id="details-select">
+              <option value="">--Please choose an option--</option>
+              <option value="33202">Insertion of epicardial electrode(s); open incision (e.g., thoracotomy, median sternotomy, subxiphoid approach)</option>
+              <option value="33203">Insertion of epicardial electrode(s); endoscopic approach (e.g., thoracoscopy, pericardioscopy)</option>
+              <option value="33206">Insertion of new or replacement of permanent pacemaker with transvenous electrode(s); atrial </option>
+              <option value="33207">Insertion of new or replacement of permanent pacemaker with transvenous electrode(s); ventricular </option>
+              <option value="33208">Insertion of new or replacement of permanent pacemaker with transvenous electrode(s); atrial and ventricular </option>
+              <option value="33212">Insertion of pacemaker pulse generator only; with existing single lead </option>
+              <option value="33213">Insertion of pacemaker pulse generator only; with existing dual leads </option>
+              <option value="33214">Upgrade of implanted pacemaker system, conversion of single chamber system to dual chamber system (includes removal of previously placed pulse generator, testing of existing lead, insertion of new lead, insertion of new pulse generator) </option>
+              <option value="33215">Repositioning of previously implanted transvenous pacemaker or implantable defibrillator (right atrial or right ventricular) electrode</option>
+              <option value="33216">Insertion of a single transvenous electrode, permanent pacemaker or implantable defibrillator </option>
+              <option value="33217">Insertion of 2 transvenous electrodes, permanent pacemaker or implantable defibrillator </option>
+              <option value="33218">Repair of single transvenous electrode, permanent pacemaker or implantable defibrillator </option>
+              <option value="33220">Repair of 2 transvenous electrodes for permanent pacemaker or implantable defibrillator </option>
+              <option value="33221">Insertion of pacemaker pulse generator only; with existing multiple leads </option>
+              <option value="33222">Relocation of skin pocket for pacemaker </option>
+              <option value="33223">Relocation of skin pocket for implantable defibrillator </option>
+              <option value="33224">Insertion of pacing electrode, cardiac venous system, for left ventricular pacing, with attachment to previously placed pacemaker or implantable defibrillator pulse generator (including revision of pocket, removal, insertion, and/or replacement of existing generator)</option>
+              <option value="33225">Insertion of pacing electrode, cardiac venous system, for left ventricular pacing, at time of insertion of implantable defibrillator or pacemaker pulse generator (e.g., for upgrade to dual chamber system) (List separately in No changeition to code for primary procedure)</option>
+              <option value="33226">Repositioning of previously implanted cardiac venous system (left ventricular) electrode (including removal, insertion and/or replacement of existing generator)</option>
+              <option value="33227">Removal of permanent pacemaker pulse generator with replacement of pacemaker pulse generator; single lead system </option>
+              <option value="33228">Removal of permanent pacemaker pulse generator with replacement of pacemaker pulse generator; dual lead system </option>
+              <option value="33229">Removal of permanent pacemaker pulse generator with replacement of pacemaker pulse generator; multiple lead system </option>
+              <option value="33230">Insertion of implantable defibrillator pulse generator only; with existing dual leads </option>
+              <option value="33231">Insertion of implantable defibrillator pulse generator only; with existing multiple leads </option>
+              <option value="33233">Removal of permanent pacemaker pulse generator only </option>
+              <option value="33234">Removal of transvenous pacemaker electrode(s); single lead system, atrial or ventricular </option>
+              <option value="33235">Removal of transvenous pacemaker electrode(s); dual lead system </option>
+              <option value="33236">Removal of permanent epicardial pacemaker and electrodes by thoracotomy; single lead system, atrial or ventricular</option>
+              <option value="33237">Removal of permanent epicardial pacemaker and electrodes by thoracotomy; dual lead system</option>
+              <option value="33238">Removal of permanent transvenous electrode(s) by thoracotomy</option>
+              <option value="33240">Insertion of implantable defibrillator pulse generator only; with existing single lead </option>
+              <option value="33241">Removal of implantable defibrillator pulse generator only </option>
+              <option value="33243">Removal of single or dual chamber implantable defibrillator electrode(s); by thoracotomy</option>
+              <option value="33244">Removal of implantable defibrillator pulse generator with replacement of implantable defibrillator pulse generator; by transvenous extraction </option>
+              <option value="33249">Insertion or replacement of permanent implantable defibrillator system, with transvenous lead(s), single or dual chamber </option>
+              <option value="33262">Removal of implantable defibrillator pulse generator with replacement of implantable defibrillator pulse generator; single lead system </option>
+              <option value="33263">Removal of implantable defibrillator pulse generator with replacement of implantable defibrillator pulse generator; dual lead system </option>
+              <option value="33264">Removal of implantable defibrillator pulse generator with replacement of implantable defibrillator pulse generator; multiple lead system </option>
+              <option value="33270">Insertion or replacement of permanent subcutaneous implantable defibrillator system, with subcutaneous electrode, including defibrillation threshold evaluation, induction of arrhythmia, evaluation of sensing for arrhythmia termination, and programming or reprogramming of sensing or therapeutic parameters, when performed</option>
+              <option value="33271">Insertion of subcutaneous implantable defibrillator electrode</option>
+              <option value="33272">Removal of subcutaneous implantable defibrillator electrode</option>
+              <option value="33273">Repositioning of previously implanted subcutaneous implantable defibrillator electrode</option>
+              <option value="0571T">Insertion or replacement of implantable cardioverter-defibrillation system with substernal electrode(s), including all imaging guidance and electrophysiological evaluation (includes defibrillation threshold evaluation, induction of arrhythmia, evaluation of sensing for arrhythmia termination, and programming or reprogramming of sensing or therapeutic parameters), when performed</option>
+              <option value="0572T">Insertion of substernal implantable defibrillation electrode </option>
+              <option value="0573T">Removal of substernal implantable defibrillation electrode</option>
+              <option value="0574T">Repositioning of previously implanted substernal implantable defibrillator-pacing electrode</option>
+          </select>
+            <span></span> <input  type="submit" value="Submit">
+      </label>
+    </form>
+    <p style="margin-bottom:2cm"/>
+
+    <iframe frameBorder="0" name="results_iframe" style="display:block;width:70%;margin-left:auto;margin-right:auto"/>
+  </body>
+</html>
