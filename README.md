@@ -1,4 +1,4 @@
-## Project Goals:
+## Web Application for Hospital Price Transparency
 Create price transparency for medical procedures for individual's receiving medical care, ultimately driving towards 
 empowering individuals to demand price transparency and opportunities to negotiate prices. Design an application which 
 enables this information to be presented and accessed in a scalable way. 
@@ -33,7 +33,7 @@ hospital were the <minimum negotiated charge>, <maximum negotiated charge>, and 
 information enabled me to present the minimum and maximum range of negotiated charges for a given procedure by 
 hospital. I then matched the lowest cost negotiated price and maximum negotiated price with the respective insurer. 
   
-## Big Data Architecture:
+## Lambda Architecture:
 
 This project leveraged the lambda architecture. The Batch Layer was constructed using Hive and Java Script. The Speed Layer 
 enables an interface for users to input a hospital bill they received for a hospital procedure. The speed layer is written with 
