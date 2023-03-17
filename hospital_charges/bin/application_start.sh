@@ -1,0 +1,2 @@
+cd /home/ec2-user/ecjackson/CodeDeploy/hospital_charges_app
+forever --id "ecjackson_3046" start app.js 3046 172.31.95.18 8070 b-3.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092,b-1.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092,b-2.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092
