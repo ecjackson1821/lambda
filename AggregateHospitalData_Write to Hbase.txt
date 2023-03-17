@@ -1,0 +1,40 @@
+CREATE table hospital_union (
+    hospital_code string, hospital string, code string, code_description string, min_charge double, insurer_min_charge string, max_charge double, insurer_max_charge string, uninsured_charge double) stored as orc;
+
+INSERT OVERWRITE table hospital_union
+select concat(r.hospital, r.code), * from rush_min_max r union all select concat(n.hospital, n.code), * from northwestern_min_max n
+
+CREATE table chi_hospitals (
+    code string, category_code string, category string, code_description string, hospital string, min_charge double, insurer_min_charge string, max_charge double, insurer_max_charge string, uninsured_charge double) stored as orc;
+
+INSERT OVERWRITE table chi_hospitals 
+SELECT cpt.CPTCodes, cpt.CategoryCode, cpt.Category, cpt.Description, u.hospital, u.min_charge, u.insurer_min_charge, u.max_charge, u.insurer_max_charge, u.uninsured_charge 
+FROM cpt_codes cpt
+LEFT JOIN hospital_union u ON cpt.CPTCodes = u.code
+WHERE u.code is not null
+
+
+--write hive table over to hbase
+
+create 'chi_hosp', 'charges'
+
+create external table chi_hosp (
+    code_hospital string,
+    code string, 
+    category_code string, 
+    category string, 
+    code_description string, 
+    hospital string, 
+    min_charge bigint, 
+    insurer_min_charge string, 
+    max_charge bigint, 
+    insurer_max_charge string, 
+    uninsured_charge bigint,
+    num_inputted_bills bigint,
+    inputted_bills_sum bigint)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+WITH SERDEPROPERTIES ('hbase.columns.mapping' = ':key,charges:code,charges:category_code,charges:category,charges:code_description,charges:hospital,charges:min_charge#b,charges:insurer_min_charge,charges:max_charge#b,charges:insurer_max_charge,charges:uninsured_charge#b,charges:num_inputted_bills#b,charges:inputted_bills_sum#b')
+TBLPROPERTIES ('hbase.table.name' = 'chi_hosp')
+
+insert overwrite table chi_hosp
+select concat(c.code,"_",c.hospital), c.code, c.category_code, c.category, c.code_description, c.hospital, c.min_charge, c.insurer_min_charge, c.max_charge, c.insurer_max_charge, c.uninsured_charge, 0, 0 FROM chi_hospitals c

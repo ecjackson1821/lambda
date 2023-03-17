@@ -1,0 +1,15 @@
+node app.js 3034 ec2-54-166-56-39.compute-1.amazonaws.com 8070 b-2.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092,b-1.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092,b-3.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092
+
+starting up kafka
+
+-- created a topic
+kafka-topics.sh --create --zookeeper z-2.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:2181,z-1.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:2181,z-3.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:2181 --replication-factor 1 --partitions 1 --topic ecjackson_hospital_input 
+
+-- consume messages
+kafka-console-consumer.sh --bootstrap-server b-2.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092,b-1.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092,b-3.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092 --topic ecjackson_hospital_input --from-beginning
+
+-- input messages
+kafka-console-producer.sh --broker-list b-2.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092,b-1.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092,b-3.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092 --topic ecjackson-hospital-input
+
+-- launch kafka streaming to place data in hbase scratch table called 'chi_hosp'
+spark-submit --master local[2] --driver-java-options "-Dlog4j.configuration=file:///home/hadoop/ss.log4j.properties" --class StreamBills uber-speedlayer_bills-1.0-SNAPSHOT.jar b-2.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092,b-1.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092,b-3.mpcs530142022.7vr20l.c19.kafka.us-east-1.amazonaws.com:9092

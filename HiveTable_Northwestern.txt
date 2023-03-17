@@ -1,0 +1,37 @@
+create external table northwestern_charges(BillingCode string,ChargeType string,Code string, ServiceDescription string, RevenueCode string, GrossCharge decimal,DeidentifiedMinimumNegotiatedCharge decimal, DeidentifiedMaximumNegotiatedCharge decimal, DiscountedCashPrice decimal, NegotiatedChargeNMHAETNA_3004_ decimal, NegotiatedChargeNMHAETNANAP_330_ decimal, NegotiatedChargeNMHBCBSBLUECHOICEOPTIONSADP_725_ decimal, NegotiatedChargeNMHBCBSBLUECHOICEPREFERREDADP_433_ decimal, NegotiatedChargeNMHBCBSPAR_INDEMNITYADP_486_ decimal, NegotiatedChargeNMHBCBSPPOADP_371_ decimal, NegotiatedChargeNMHCIGNAALTERNATIVE_664_ decimal, NegotiatedChargeNMHCIGNABROAD_663_ decimal, NegotiatedChargeNMHCIGNAPLUSNM_680_ decimal, NegotiatedChargeNMHHEALTHALLIANCE_399_ decimal, NegotiatedChargeNMHHUMANA_553_ decimal, NegotiatedChargeNMHUHC_419_ decimal, NegotiatedChargeNMHUHCCORE_329_ decimal, NegotiatedChargeNMHCIMAGINEHEALTH_653_ decimal) row format delimited fields terminated by ',' stored as textfile location  '/tmp/ecjackson/project/northwestern/'
+
+CREATE table northwestern_min_max (
+    hospital string, code string, code_description string, min_charge double, insurer_min_charge string, max_charge double, insurer_max_charge string, uninsured_charge double) stored as orc;
+
+INSERT OVERWRITE table northwestern_min_max
+SELECT 'Northwestern', n.Code, n.ServiceDescription, n.DeIdentifiedMinimumNegotiatedCharge as MinCharge,
+        (CASE least(n.NegotiatedChargeNMHAETNA_3004_, n.NegotiatedChargeNMHAETNANAP_330_, n.NegotiatedChargeNMHBCBSBLUECHOICEOPTIONSADP_725_, n.NegotiatedChargeNMHBCBSBLUECHOICEPREFERREDADP_433_, n.NegotiatedChargeNMHBCBSPAR_INDEMNITYADP_486_, n.NegotiatedChargeNMHBCBSPPOADP_371_, n.NegotiatedChargeNMHCIGNAALTERNATIVE_664_, n.NegotiatedChargeNMHCIGNABROAD_663_, n.NegotiatedChargeNMHCIGNAPLUSNM_680_, n.NegotiatedChargeNMHHEALTHALLIANCE_399_, n.NegotiatedChargeNMHHUMANA_553_, n.NegotiatedChargeNMHUHC_419_, n.NegotiatedChargeNMHUHCCORE_329_, n.NegotiatedChargeNMHCIMAGINEHEALTH_653_)
+              WHEN n.NegotiatedChargeNMHAETNA_3004_ THEN 'Aetna'
+              WHEN n.NegotiatedChargeNMHAETNANAP_330_ THEN 'Aetna National Advantage Plan (out-of-network)'
+              WHEN n.NegotiatedChargeNMHBCBSBLUECHOICEOPTIONSADP_725_ THEN 'Blue Cross - Blue Choice Options ADP'
+              WHEN n.NegotiatedChargeNMHBCBSBLUECHOICEPREFERREDADP_433_ THEN 'Blue Cross - Blue Choice Preferred ADP'
+              WHEN n.NegotiatedChargeNMHBCBSPAR_INDEMNITYADP_486_ THEN 'Blue Cross - Par/Indemnity ADP'
+              WHEN n.NegotiatedChargeNMHBCBSPPOADP_371_ THEN 'Blue Cross - PPO ADP'
+              WHEN n.NegotiatedChargeNMHCIGNAALTERNATIVE_664_ THEN 'Cigna Alternative'
+              WHEN n.NegotiatedChargeNMHCIGNABROAD_663_ THEN 'Cigna Broad'
+              WHEN n.NegotiatedChargeNMHCIGNAPLUSNM_680_ THEN 'Cigna Plus'
+              WHEN n.NegotiatedChargeNMHHEALTHALLIANCE_399_ THEN 'Health Alliance'
+              WHEN n.NegotiatedChargeNMHHUMANA_553_ THEN 'Humana'
+              WHEN n.NegotiatedChargeNMHUHC_419_ THEN 'United Healthcare'
+              WHEN n.NegotiatedChargeNMHUHCCORE_329_ THEN 'United Healthcare Core'
+              WHEN n.NegotiatedChargeNMHCIMAGINEHEALTH_653_ THEN 'Imagine Health' END) as InsurerMinCharge, n.DeIdentifiedMaximumNegotiatedCharge as MaxCharge,
+                      (CASE greatest(n.NegotiatedChargeNMHAETNA_3004_, n.NegotiatedChargeNMHAETNANAP_330_, n.NegotiatedChargeNMHBCBSBLUECHOICEOPTIONSADP_725_, n.NegotiatedChargeNMHBCBSBLUECHOICEPREFERREDADP_433_, n.NegotiatedChargeNMHBCBSPAR_INDEMNITYADP_486_, n.NegotiatedChargeNMHBCBSPPOADP_371_, n.NegotiatedChargeNMHCIGNAALTERNATIVE_664_, n.NegotiatedChargeNMHCIGNABROAD_663_, n.NegotiatedChargeNMHCIGNAPLUSNM_680_, n.NegotiatedChargeNMHHEALTHALLIANCE_399_, n.NegotiatedChargeNMHHUMANA_553_, n.NegotiatedChargeNMHUHC_419_, n.NegotiatedChargeNMHUHCCORE_329_, n.NegotiatedChargeNMHCIMAGINEHEALTH_653_)
+              WHEN n.NegotiatedChargeNMHAETNA_3004_ THEN 'Aetna'
+              WHEN n.NegotiatedChargeNMHAETNANAP_330_ THEN 'Aetna National Advantage Plan (out-of-network)'
+              WHEN n.NegotiatedChargeNMHBCBSBLUECHOICEOPTIONSADP_725_ THEN 'Blue Cross - Blue Choice Options ADP'
+              WHEN n.NegotiatedChargeNMHBCBSBLUECHOICEPREFERREDADP_433_ THEN 'Blue Cross - Blue Choice Preferred ADP'
+              WHEN n.NegotiatedChargeNMHBCBSPAR_INDEMNITYADP_486_ THEN 'Blue Cross - Par/Indemnity ADP'
+              WHEN n.NegotiatedChargeNMHBCBSPPOADP_371_ THEN 'Blue Cross - PPO ADP'
+              WHEN n.NegotiatedChargeNMHCIGNAALTERNATIVE_664_ THEN 'Cigna Alternative'
+              WHEN n.NegotiatedChargeNMHCIGNABROAD_663_ THEN 'Cigna Broad'
+              WHEN n.NegotiatedChargeNMHCIGNAPLUSNM_680_ THEN 'Cigna Plus'
+              WHEN n.NegotiatedChargeNMHHEALTHALLIANCE_399_ THEN 'Health Alliance'
+              WHEN n.NegotiatedChargeNMHHUMANA_553_ THEN 'Humana'
+              WHEN n.NegotiatedChargeNMHUHC_419_ THEN 'United Healthcare'
+              WHEN n.NegotiatedChargeNMHUHCCORE_329_ THEN 'United Healthcare Core'
+              WHEN n.NegotiatedChargeNMHCIMAGINEHEALTH_653_ THEN 'Imagine Health' END) as InsurerMinCharge, n.DiscountedCashPrice as UnInsured FROM northwestern_charges n

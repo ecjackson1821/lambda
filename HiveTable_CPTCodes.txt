@@ -1,0 +1,2 @@
+create external table cpt_codes(CategoryCode string, Category string, CPTCodes string, Description string) 
+row format delimited fields terminated by ',' stored as textfile location  '/tmp/ecjackson/project/medical_codes'

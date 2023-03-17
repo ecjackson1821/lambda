@@ -1,0 +1,14 @@
+transfer local files to the name node (run from local)
+
+scp -i ecjackson.pem /hospital_charge_data/CPT_Codes.csv hadoop@ec2-54-166-56-39.compute-1.amazonaws.com:~/
+scp -i ecjackson.pem /hospital_charge_data/Northwestern.csv hadoop@ec2-54-166-56-39.compute-1.amazonaws.com:~/
+scp -i ecjackson.pem /hospital_charge_data/Rush.csv hadoop@ec2-54-166-56-39.compute-1.amazonaws.com:~/
+
+transfer files from cluster over to hadooop (run within hadoop server)
+
+hdfs dfs -put -f CPT_Codes.csv /tmp/ecjackson/project/medical_codes/cpt_codes.csv
+hdfs dfs -put -f Rush.csv /tmp/ecjackson/project/rumc/rush_20210701.csv
+hdfs dfs -put -f Northwestern.csv /tmp/ecjackson/project/northwestern/northwestern_20220218.csv
+
+run beeline command to access Hive
+beeline -u jdbc:hive2://localhost:10000/default -n hadoop  -d org.apache.hive.jdbc.HiveDriver
